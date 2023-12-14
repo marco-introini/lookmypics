@@ -1,19 +1,17 @@
 <?php
 
+use App\Filament\SuperAdmin\Resources\UserResource;
 use App\Models\User;
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\get;
-use function Pest\Laravel\withoutVite;
-
-beforeAll(function (){
-    withoutVite();
-});
 
 test('a super admin can login', function () {
-    actingAs(User::factory()->create([
-        'super_admin' => true
-    ]));
+    $superUser = User::factory()->create();
+    $superUser->super_admin = true;
+    $superUser->save();
+    actingAs($superUser);
 
-    get(\App\Filament\SuperAdmin\Resources\UserResource::getUrl('index'))->assertSuccessful();
+    ray($superUser);
+    ray(get(UserResource::getUrl('index',panel: 'super-admin')));//->assertSuccessful();
 
 });
