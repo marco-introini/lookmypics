@@ -2,7 +2,7 @@
 
 # Deploy - to be executed as normal user
 
-cd /var/www/lookmypics.com
+cd /var/www/lookmypics.com || exit
 
 php artisan down
 
