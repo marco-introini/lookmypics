@@ -26,6 +26,7 @@ class SuperAdminPanelProvider extends PanelProvider
             ->id('super-admin')
             ->path('super-admin')
             ->login()
+            ->profile()
             ->brandName('LookMyPics Super Admin')
             ->colors([
                 'primary' => Color::Red,
