@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'super_admin',
     ];
 
     /**
@@ -48,4 +50,13 @@ class User extends Authenticatable
     {
         return $this->super_admin;
     }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return match ($panel->getId()){
+            'super-admin' => $this->super_admin,
+            default => true,
+        };
+    }
+
 }
