@@ -34,6 +34,9 @@ jobs:
     - name: Install ViteJS
       run:
         npm run build
+    - name: Static Analysis
+      run:
+        vendor/bin/phpstan
     - name: Execute tests (Unit and Feature tests) via Pest
       env:
         DB_CONNECTION: sqlite
