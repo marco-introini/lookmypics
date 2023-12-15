@@ -43,10 +43,12 @@ class UserResource extends Resource
                 Tables\Columns\IconColumn::make('verified')
                     ->boolean(),
             ])
+            ->recordClasses(fn (User $record) => $record->isSuperAdmin() ? 'border-s-2 border-orange-600 dark:border-orange-300' : '')
             ->defaultSort('created_at', 'desc')
             ->filters([
                 TernaryFilter::make('email_verified_at')
                     ->nullable()
+                    ->label('Verified')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
