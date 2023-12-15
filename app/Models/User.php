@@ -5,6 +5,7 @@ namespace App\Models;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -54,10 +55,20 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return match ($panel->getId()){
+        return match ($panel->getId()) {
             'super-admin' => $this->super_admin,
             default => true,
         };
+    }
+
+    /**
+     * @return Attribute<bool, never>
+     */
+    public function verified(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => $this->email_verified_at !== null
+        );
     }
 
 }

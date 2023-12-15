@@ -14,9 +14,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $superAdmin = User::factory()->create([
-             'name' => 'Test Super Admin',
-             'email' => 'test@example.com',
-         ]);
+            'username' => 'admin',
+            'name' => 'Test Super Admin',
+            'email' => 'test@example.com',
+            'email_verified_at' => now(),
+        ]);
         $superAdmin->super_admin = true;
         $superAdmin->save();
 
