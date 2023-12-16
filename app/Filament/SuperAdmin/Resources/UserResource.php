@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -24,7 +25,12 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('username')
+                    ->unique(ignoreRecord: true)
+                    ->maxLength(20)
+                    ->regex('/^[a-zA-Z0-9-_]+$/'),
+                Forms\Components\TextInput::make('email'),
+                Forms\Components\TextInput::make('name'),
             ]);
     }
 
@@ -34,17 +40,20 @@ class UserResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('username')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->icon(fn (User $record) => $record->isSuperAdmin() ? 'heroicon-o-exclamation-triangle' : '')
+                    ->color(fn (User $record) => $record->isSuperAdmin() ? 'danger' : ''),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->color(fn (User $record) => $record->isSuperAdmin() ? 'danger' : ''),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->color(fn (User $record) => $record->isSuperAdmin() ? 'danger' : ''),
                 Tables\Columns\IconColumn::make('verified')
                     ->boolean(),
             ])
-            ->recordClasses(fn (User $record) => $record->isSuperAdmin() ? 'bg-white/5' : '')
             ->defaultSort('created_at', 'desc')
             ->filters([
                 TernaryFilter::make('email_verified_at')
@@ -52,11 +61,22 @@ class UserResource extends Resource
                     ->label('Verified')
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make()
+                        ->color('warning'),
+                    Action::make('Force Password')
+                        ->icon('heroicon-o-lifebuoy')
+                        ->color('danger')
+                        ->form([
+                            Forms\Components\TextInput::make('password')
+                                ->password()
+                                ->maxLength(20)
+                                ->required(),
+                        ]),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
