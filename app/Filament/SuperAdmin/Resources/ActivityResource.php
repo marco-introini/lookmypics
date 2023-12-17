@@ -17,7 +17,8 @@ class ActivityResource extends Resource
 {
     protected static ?string $model = Activity::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-queue-list';
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
@@ -36,10 +37,16 @@ class ActivityResource extends Resource
                         ->label('Username'),
                     TextEntry::make('user.email')
                         ->label('User Email'),
-                ])->columns(2),
+                ])->columns(2)
+                ->icon('heroicon-o-user'),
 
-            TextEntry::make('log_message')
-                ->columnSpanFull(),
+            Section::make('LOG Data')
+                ->schema([
+                    TextEntry::make('log_message')
+                        ->columnSpanFull(),
+                    TextEntry::make('created_at'),
+                ])->columns(2)
+                    ->icon('heroicon-o-exclamation-triangle'),
 
             Section::make('Model Data')
                 ->schema([
