@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Activity;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -23,5 +24,7 @@ class DatabaseSeeder extends Seeder
         $superAdmin->save();
 
         User::factory(10)->create();
+
+        Activity::factory(20)->create();
     }
 }
