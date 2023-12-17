@@ -7,6 +7,7 @@ use App\Filament\SuperAdmin\Resources\UserResource\Pages;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
@@ -14,6 +15,7 @@ use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
 {
@@ -41,16 +43,16 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('username')
                     ->searchable()
                     ->sortable()
-                    ->icon(fn (User $record) => $record->isSuperAdmin() ? 'heroicon-o-exclamation-triangle' : '')
-                    ->color(fn (User $record) => $record->isSuperAdmin() ? 'danger' : ''),
+                    ->icon(fn(User $record) => $record->isSuperAdmin() ? 'heroicon-o-exclamation-triangle' : '')
+                    ->color(fn(User $record) => $record->isSuperAdmin() ? 'danger' : ''),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->sortable()
-                    ->color(fn (User $record) => $record->isSuperAdmin() ? 'danger' : ''),
+                    ->color(fn(User $record) => $record->isSuperAdmin() ? 'danger' : ''),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable()
                     ->sortable()
-                    ->color(fn (User $record) => $record->isSuperAdmin() ? 'danger' : ''),
+                    ->color(fn(User $record) => $record->isSuperAdmin() ? 'danger' : ''),
                 Tables\Columns\IconColumn::make('verified')
                     ->boolean(),
             ])
@@ -71,8 +73,19 @@ class UserResource extends Resource
                             Forms\Components\TextInput::make('password')
                                 ->password()
                                 ->maxLength(20)
+                                ->minLength(5)
                                 ->required(),
-                        ]),
+                        ])
+                        ->action(function (array $data, User $user) {
+                            $user->forceFill([
+                                'password' => Hash::make($data['password']),
+                            ])->save();
+
+                            Notification::make('confirm')
+                                ->title('Password updated')
+                                ->success()
+                                ->send();
+                        }),
                 ])
             ])
             ->bulkActions([
