@@ -3,16 +3,15 @@
 namespace App\Filament\SuperAdmin\Resources;
 
 use App\Filament\SuperAdmin\Resources\ActivityResource\Pages;
-use App\Filament\SuperAdmin\Resources\ActivityResource\RelationManagers;
 use App\Models\Activity;
-use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Group;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ActivityResource extends Resource
 {
@@ -31,7 +30,22 @@ class ActivityResource extends Resource
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist->schema([
+            Section::make('User Data')
+                ->schema([
+                    TextEntry::make('user.username')
+                        ->label('Username'),
+                    TextEntry::make('user.email')
+                        ->label('User Email'),
+                ])->columns(2),
 
+            TextEntry::make('log_message')
+                ->columnSpanFull(),
+
+            Section::make('Model Data')
+                ->schema([
+                    TextEntry::make('model'),
+                    TextEntry::make('model_id'),
+                ])->columns(2),
         ]);
     }
 
@@ -57,15 +71,14 @@ class ActivityResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListActivities::route('/'),
+            'view' => Pages\ViewActivity::route('/{record}'),
         ];
     }
 }
