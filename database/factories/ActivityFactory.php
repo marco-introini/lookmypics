@@ -15,7 +15,7 @@ class ActivityFactory extends Factory
     {
         return [
             'user_id' => User::inRandomOrder()->first()->id ?? User::factory()->create()->id,
-            'log_message' => $this->faker->paragraph(),
+            'log_message' => $this->faker->paragraph(5),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
