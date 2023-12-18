@@ -12,6 +12,9 @@ class Activity extends Model
 
     protected $guarded = [];
 
+    /**
+     * @return BelongsTo<User,Activity>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
