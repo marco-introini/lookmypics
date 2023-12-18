@@ -2,8 +2,7 @@
 
 namespace App\Filament\Admin\Resources;
 
-use App\Filament\Resources\AlbumResource\Pages;
-use App\Filament\Resources\AlbumResource\RelationManagers;
+use App\Filament\Admin\Resources\AlbumResource\Pages;
 use App\Models\Album;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
