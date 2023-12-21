@@ -22,7 +22,7 @@ class Album extends Model
     {
         static::addGlobalScope('user', function (Builder $query) {
             if (auth()->check()) {
-                $query->where('user_id', auth()->user()->team_id);
+                $query->where('user_id', auth()->user()->id);
             }
         });
     }
