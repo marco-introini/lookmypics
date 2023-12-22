@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class Picture extends Model
 {
@@ -23,7 +24,7 @@ class Picture extends Model
     }
     public function getUrl(): string
     {
-        // code to generate and return the URL of the picture
+        return Storage::url($this->image);
     }
     public function isOwnedBy(User $user): bool
     {
