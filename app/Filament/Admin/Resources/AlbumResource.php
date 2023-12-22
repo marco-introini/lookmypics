@@ -48,7 +48,6 @@ class AlbumResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
-
             ->bulkActions([
 
             ]);
@@ -66,13 +65,18 @@ class AlbumResource extends Resource
         return $infolist
             ->schema([
                 TextEntry::make('name'),
-                TextEntry::make('description')
-                    ->columnSpanFull(),
+                Section::make('Description')
+                    ->schema([
+                        TextEntry::make('description')
+                            ->markdown()
+                            ->columnSpanFull()
+                            ->label(''),
+                    ]),
                 Section::make('Info')
                     ->schema([
                         TextEntry::make('created_at'),
                         TextEntry::make('updated_at'),
-                    ]),
+                    ])->columns(2),
             ]);
     }
 
