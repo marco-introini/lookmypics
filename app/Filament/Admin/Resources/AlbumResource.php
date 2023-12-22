@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Resources;
 
 use App\Filament\Admin\Resources\AlbumResource\Pages;
+use App\Filament\Admin\Resources\AlbumResource\RelationManagers\PicturesRelationManager;
 use App\Models\Album;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\MarkdownEditor;
@@ -56,7 +57,7 @@ class AlbumResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PicturesRelationManager::class,
         ];
     }
 

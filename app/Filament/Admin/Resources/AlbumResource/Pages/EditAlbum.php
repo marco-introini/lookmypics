@@ -17,8 +17,9 @@ class EditAlbum extends EditRecord
         ];
     }
 
+    // Aggiunto per tornare alla pagina indice
     protected function getRedirectUrl(): string
     {
-        return $this->getResource()::getUrl('home');
+        return $this->getResource()::getUrl('index');
     }
 }

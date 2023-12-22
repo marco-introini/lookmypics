@@ -23,7 +23,8 @@ class PictureResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name'),
+
             ]);
     }
 
@@ -31,7 +32,8 @@ class PictureResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('album.name'),
             ])
             ->filters([
                 //
