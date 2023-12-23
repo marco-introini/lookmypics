@@ -72,6 +72,9 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
         );
     }
 
+    /**
+     * @return HasMany<Album>
+     */
     public function albums(): HasMany
     {
         return $this->hasMany(Album::class, 'user_id');

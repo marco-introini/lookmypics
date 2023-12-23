@@ -4,7 +4,6 @@ namespace App\Observers;
 
 use App\Models\Activity;
 use App\Models\Album;
-use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
 
 class AlbumObserver
@@ -13,7 +12,7 @@ class AlbumObserver
     {
         $album->uuid = Uuid::uuid4()->toString();
         if (auth()->check()){
-            $album->user_id = auth()->id();
+            $album->user_id = auth()->user()->id ?? 1; // by default if unauth will be owned by Admin
         }
     }
 
@@ -23,7 +22,7 @@ class AlbumObserver
             'model' => Album::class,
             'model_id' => $album->id,
             'log_message' => "Album {$album->name} created",
-            'user_id' => auth()->user()->id
+            'user_id' => auth()->user()->id ?? 'ERROR: Unauthenticated!!!',
         ]);
     }
 
@@ -33,7 +32,7 @@ class AlbumObserver
             'model' => Album::class,
             'model_id' => $album->id,
             'log_message' => "Album {$album->name} updated",
-            'user_id' => auth()->user()->id
+            'user_id' => auth()->user()->id ?? 'ERROR: Unauthenticated!!!',
         ]);
     }
 

@@ -23,16 +23,22 @@ class Album extends Model
     {
         static::addGlobalScope('user', function (Builder $query) {
             if (auth()->check()) {
-                $query->where('user_id', auth()->user()->id);
+                $query->where('user_id', '=',auth()->user()->id ?? null);
             }
         });
     }
 
+    /**
+     * @return BelongsTo<User,Album>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @return HasMany<Picture>
+     */
     public function pictures(): HasMany
     {
         return $this->hasMany(Picture::class, 'album_id');

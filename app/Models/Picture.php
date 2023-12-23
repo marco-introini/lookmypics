@@ -13,6 +13,9 @@ class Picture extends Model
 
     protected $guarded = [];
 
+    /**
+     * @return BelongsTo
+     */
     public function album(): BelongsTo
     {
         return $this->belongsTo(Album::class);
@@ -22,6 +25,7 @@ class Picture extends Model
     {
         return User::find($this->album->user->id);
     }
+
     public function getUrl(): string
     {
         return Storage::url($this->image);

@@ -16,7 +16,7 @@ class PictureObserver
             'model' => Picture::class,
             'model_id' => $picture->id,
             'log_message' => "Picture {$picture->name} created",
-            'user_id' => auth()->user()->id,
+            'user_id' => auth()->user()->id ?? 'ERROR: Unauthenticated!!!',
         ]);
     }
 
@@ -26,7 +26,7 @@ class PictureObserver
             'model' => Picture::class,
             'model_id' => $picture->id,
             'log_message' => "Picture {$picture->name} updated",
-            'user_id' => auth()->user()->id,
+            'user_id' => auth()->user()->id ?? 'ERROR: Unauthenticated!!!',
         ]);
     }
 
@@ -39,7 +39,7 @@ class PictureObserver
             'model' => Picture::class,
             'model_id' => $picture->id,
             'log_message' => "Picture {$picture->name} removed and file deleted",
-            'user_id' => auth()->user()->id,
+            'user_id' => auth()->user()->id ?? 'ERROR: Unauthenticated!!!',
         ]);
     }
 }
