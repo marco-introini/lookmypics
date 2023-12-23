@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PictureResource;
 use App\Models\Picture;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class PictureController extends Controller
 {
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
         return PictureResource::collection(Picture::all());
     }
 
-    public function store(Request $request)
+    public function store(Request $request): PictureResource
     {
         $data = $request->validate([
             'name' => ['required'],
@@ -24,12 +26,12 @@ class PictureController extends Controller
         return new PictureResource(Picture::create($data));
     }
 
-    public function show(Picture $picture)
+    public function show(Picture $picture): PictureResource
     {
         return new PictureResource($picture);
     }
 
-    public function update(Request $request, Picture $picture)
+    public function update(Request $request, Picture $picture): PictureResource
     {
         $data = $request->validate([
             'name' => ['required'],
@@ -42,7 +44,7 @@ class PictureController extends Controller
         return new PictureResource($picture);
     }
 
-    public function destroy(Picture $picture)
+    public function destroy(Picture $picture): JsonResponse
     {
         $picture->delete();
 
