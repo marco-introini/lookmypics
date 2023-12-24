@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Activity;
+use App\Models\Album;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -18,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $superAdmin = User::factory()->create([
             'username' => 'admin',
             'name' => 'Test Super Admin',
-            'email' => 'test@example.com',
+            'email' => 'admin@example.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password')
         ]);
@@ -36,6 +37,6 @@ class DatabaseSeeder extends Seeder
 
         User::factory(10)->create();
 
-        Activity::factory(20)->create();
+        Album::factory(3)->create();
     }
 }

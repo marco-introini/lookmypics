@@ -27,7 +27,8 @@ class PicturesRelationManager extends RelationManager
                     ->image()
                     ->required()
                     ->disk('images')
-            ]);
+            ])
+            ->columns(1);
     }
 
     public function table(Table $table): Table

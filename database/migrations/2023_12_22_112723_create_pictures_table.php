@@ -10,10 +10,11 @@ return new class extends Migration {
     {
         Schema::create('pictures', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Album::class);
+            $table->foreignIdFor(Album::class)->constrained();
             $table->string('name');
             $table->string('image');
             $table->text('description')->nullable();
+            $table->integer('view_count')->default(0);
             $table->timestamps();
         });
     }

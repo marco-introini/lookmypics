@@ -10,7 +10,7 @@ return new class extends Migration {
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(User::class)->nullable();
             $table->text('log_message');
             $table->string('model')->nullable();
             $table->unsignedInteger('model_id')->nullable();
