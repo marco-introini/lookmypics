@@ -27,6 +27,7 @@ class PicturesRelationManager extends RelationManager
                     ->image()
                     ->required()
                     ->disk('images')
+                    ->storeFileNamesIn('original_name')
             ])
             ->columns(1);
     }
