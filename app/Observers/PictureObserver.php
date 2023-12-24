@@ -32,8 +32,7 @@ class PictureObserver
 
     public function deleted(Picture $picture): void
     {
-        // TODO: add file removal
-        Storage::delete($picture->image);
+        Storage::disk('images')->delete($picture->image);
 
         Activity::create([
             'model' => Picture::class,
