@@ -22,7 +22,7 @@ class AlbumObserver
             'model' => Album::class,
             'model_id' => $album->id,
             'log_message' => "Album {$album->name} created",
-            'user_id' => auth()->user()->id ?? 'ERROR: Unauthenticated!!!',
+            'user_id' => auth()->user()->id ?? null,
         ]);
     }
 
@@ -32,7 +32,7 @@ class AlbumObserver
             'model' => Album::class,
             'model_id' => $album->id,
             'log_message' => "Album {$album->name} updated",
-            'user_id' => auth()->user()->id ?? 'ERROR: Unauthenticated!!!',
+            'user_id' => auth()->user()->id ?? null,
         ]);
     }
 
