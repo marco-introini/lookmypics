@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -12,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail, FilamentUser
+class User extends Authenticatable implements MustVerifyEmail, FilamentUser, HasAvatar
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -21,12 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'username',
-        'name',
-        'email',
-        'password'
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -78,6 +74,14 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
     public function albums(): HasMany
     {
         return $this->hasMany(Album::class, 'user_id');
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        if ($this->avatar) {
+            return config('app.url').'/storage/avatars/'.$this->avatar;
+        }
+        return null;
     }
 
 }

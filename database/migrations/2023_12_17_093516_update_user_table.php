@@ -8,7 +8,15 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            // TODO: add image quota (in MB)
+            $table->string('username')
+                ->unique()
+                ->after('name');
+            $table->string('avatar')
+                ->nullable()
+                ->after('username');
+            $table->boolean('super_admin')
+                ->default(false)
+                ->after('avatar');
         });
     }
 
