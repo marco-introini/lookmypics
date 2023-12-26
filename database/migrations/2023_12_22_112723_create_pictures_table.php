@@ -15,7 +15,6 @@ return new class extends Migration {
             $table->string('image');
             $table->string('original_name');
             $table->text('description')->nullable();
-            $table->integer('view_count')->default(0);
             $table->timestamps();
         });
     }
