@@ -22,6 +22,7 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 php artisan filament:upgrade
+php artisan filament:optimize
 
 sudo chown -R www-data:www-data .
 
