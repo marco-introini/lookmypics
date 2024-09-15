@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\UserRole;
+use App\Models\Picture;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -14,8 +15,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
@@ -23,20 +22,19 @@ class DatabaseSeeder extends Seeder
             'role' => UserRole::USER,
         ]);
 
-        User::factory()->create([
+        User::factory()->admin()->create([
             'name' => 'Admin',
             'email' => 'admin@example.com',
             'password' => 'password',
-            'role' => UserRole::ADMIN,
         ]);
 
-        User::factory()->create([
+        User::factory()->superAdmin()->create([
             'name' => 'SuperAdmin',
             'email' => 'superadmin@example.com',
             'password' => 'password',
-            'role' => UserRole::SUPER_ADMIN,
         ]);
 
+        Picture::factory(10)->create();
 
     }
 }

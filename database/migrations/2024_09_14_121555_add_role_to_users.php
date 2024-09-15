@@ -9,7 +9,10 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('role')->default(UserRole::USER);
+            $table->string('role')
+                ->after('password')
+                ->default(UserRole::USER);
+            $table->softDeletes();
         });
     }
 
