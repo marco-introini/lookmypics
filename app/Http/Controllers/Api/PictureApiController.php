@@ -26,6 +26,7 @@ class PictureApiController extends Controller
             'name' => ['required'],
             'description' => ['nullable'],
             'image' => ['required'],
+            'rating' => ['integer|required'],
             'user_id' => ['required', 'exists:users'],
         ]);
 
@@ -47,6 +48,7 @@ class PictureApiController extends Controller
             'name' => ['required'],
             'description' => ['nullable'],
             'image' => ['required'],
+            'rating' => ['integer|required'],
             'user_id' => ['required', 'exists:users'],
         ]);
 
