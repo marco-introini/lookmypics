@@ -18,6 +18,7 @@ class PictureFactory extends Factory
             'user_id' => User::inRandomOrder()->first()->id ?? User::factory()->admin()->create()->id,
             'description' => $this->faker->text(),
             'image' => $this->faker->imageUrl(random_int(600,2000),random_int(600,2000)),
+            'rating' => random_int(0,5),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
