@@ -28,11 +28,11 @@ test('cannot login with wrong password', function () {
 test('can login with correct data', function () {
     $user = User::factory()->create([
         'email' => 'test@example.com',
-        'password' => 'password',
+        'password' => bcrypt('password'),
     ]);
 
     postJson('api/login', [
         'email' => $user->email,
-        'password' => $user->password,
+        'password' => 'password',
     ])->assertOk();
 });
