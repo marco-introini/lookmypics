@@ -36,7 +36,7 @@ jobs:
         npm run build
     - name: Static Analysis
       run:
-        vendor/bin/phpstan
+        make check
     - name: Execute tests (Unit and Feature tests) via Pest
       env:
         DB_CONNECTION: sqlite
