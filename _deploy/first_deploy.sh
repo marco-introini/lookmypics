@@ -10,6 +10,9 @@ service nginx reload
 
 certbot --nginx
 
-chown -R www-data:www-data /var/www/lookmypics.com/
+chmod -R 777 /var/www/artarreda.com/storage
+cd /var/www/lookmypics.com || exit
+composer install
+php artisan storage:link
 
-echo "* * * * * www-data cd /var/www/lookmypics.com && php artisan schedule:run >> /dev/null 2>&1" >> /etc/crontab
+echo "* * * * * marco cd /var/www/lookmypics.com && php artisan schedule:run >> /dev/null 2>&1" >> /etc/crontab

@@ -1,29 +1,28 @@
 #!/bin/bash
 
+#!/bin/bash
+
 # Deploy - to be executed as normal user
 
 cd /var/www/lookmypics.com || exit
 
 php artisan down
 
-sudo chown -R marco:www-data .
+git reset --hard origin/main
 git pull
 composer install --no-interaction --optimize-autoloader --no-dev
 npm install
 npm run build
 
-php artisan storage:link
-php artisan optimize:clear
+php artisan filament:optimize-clear
 
 php artisan down
 
 php artisan migrate --force
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
-php artisan filament:upgrade
+php artisan optimize:clear
+php artisan optimize
 php artisan filament:optimize
 
-sudo chown -R www-data:www-data .
+chmod -R 777 /var/www/lookmypics.com/storage
 
 php artisan up
