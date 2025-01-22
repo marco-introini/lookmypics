@@ -2,9 +2,12 @@
 
 namespace App\Filament\Admin\Resources;
 
+use App\Enums\UserRole;
 use App\Filament\SuperAdmin\Resources\UserResource\Pages;
 use App\Filament\SuperAdmin\Resources\UserResource\RelationManagers;
 use App\Models\User;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -21,7 +24,19 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name')
+                    ->required()
+                    ->unique(ignoreRecord: true),
+                TextInput::make('email')
+                    ->email()
+                    ->unique(ignoreRecord: true),
+                TextInput::make('password')
+                    ->password()
+                    ->revealable(),
+                Select::make('role')
+                    ->enum(UserRole::class)
+                    ->options(UserRole::class)
+                    ->required(),
             ]);
     }
 
