@@ -25,18 +25,18 @@ class SuperAdminPanelServiceProvider extends PanelProvider
     {
         return $panel
             ->default()
-            ->id('superAdmin')
-            ->path('superAdmin')
+            ->id('admin')
+            ->path('admin')
             ->login()
             ->colors([
                 'primary' => Color::Purple,
             ])
-            ->discoverResources(in: app_path('Filament/SuperAdmin/Resources'), for: 'App\\Filament\\SuperAdmin\\Resources')
-            ->discoverPages(in: app_path('Filament/SuperAdmin/Pages'), for: 'App\\Filament\\SuperAdmin\\Pages')
+            ->discoverResources(in: app_path('Filament/admin/Resources'), for: 'App\\Filament\\admin\\Resources')
+            ->discoverPages(in: app_path('Filament/admin/Pages'), for: 'App\\Filament\\admin\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/SuperAdmin/Widgets'), for: 'App\\Filament\\SuperAdmin\\Widgets')
+            ->discoverWidgets(in: app_path('Filament/admin/Widgets'), for: 'App\\Filament\\admin\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,

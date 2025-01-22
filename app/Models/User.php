@@ -36,15 +36,15 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        if ($panel->getId() == 'superadmin') {
-            return auth()->user()->isSuperAdmin();
+        if ($panel->getId() == 'admin') {
+            return auth()->user()->isAdmin();
         }
         return true;
     }
 
-    public function isSuperAdmin(): bool
+    public function isAdmin(): bool
     {
-        return $this->role === UserRole::SUPER_ADMIN;
+        return $this->role === UserRole::ADMIN;
     }
 
     public function albums(): HasMany
