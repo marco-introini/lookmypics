@@ -8,6 +8,7 @@ use DateTime;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -46,9 +47,14 @@ class User extends Authenticatable implements FilamentUser
         return $this->role === UserRole::SUPER_ADMIN;
     }
 
-    public function isAdmin(): bool
+    public function albums(): HasMany
     {
-        return $this->isSuperAdmin() || ($this->role === UserRole::SUPER_ADMIN);
+        return $this->hasMany(Album::class, 'user_id');
+    }
+
+    public function pictures(): HasMany
+    {
+        return $this->hasMany(Picture::class, 'user_id');
     }
 
 }
