@@ -19,7 +19,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-class SuperAdminPanelServiceProvider extends PanelProvider
+class AdminPanelServiceProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {

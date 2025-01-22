@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Filament\SuperAdmin\Resources\UserResource\Pages;
+namespace App\Filament\Admin\Resources\Pages;
 
-use App\Filament\SuperAdmin\Resources\UserResource;
-use Filament\Actions;
+use App\Filament\Admin\Resources\UserResource;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateUser extends CreateRecord

@@ -1,18 +1,15 @@
 <?php
 
-namespace App\Filament\SuperAdmin\Resources;
+namespace App\Filament\Admin\Resources;
 
 use App\Filament\SuperAdmin\Resources\UserResource\Pages;
 use App\Filament\SuperAdmin\Resources\UserResource\RelationManagers;
 use App\Models\User;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class UserResource extends Resource
 {
@@ -55,9 +52,9 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'index' => \App\Filament\Admin\Resources\Pages\ListUsers::route('/'),
+            'create' => \App\Filament\Admin\Resources\Pages\CreateUser::route('/create'),
+            'edit' => \App\Filament\Admin\Resources\Pages\EditUser::route('/{record}/edit'),
         ];
     }
 }
