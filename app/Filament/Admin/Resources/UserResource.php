@@ -3,15 +3,21 @@
 namespace App\Filament\Admin\Resources;
 
 use App\Enums\UserRole;
-use App\Filament\SuperAdmin\Resources\UserResource\Pages;
-use App\Filament\SuperAdmin\Resources\UserResource\RelationManagers;
+use App\Filament\Admin\Resources\UserResource\Pages;
+use App\Filament\Admin\Resources\UserResource\Pages\CreateUser;
+use App\Filament\Admin\Resources\UserResource\Pages\EditUser;
+use App\Filament\Admin\Resources\UserResource\Pages\ListUsers;
 use App\Models\User;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class UserResource extends Resource
@@ -37,6 +43,15 @@ class UserResource extends Resource
                     ->enum(UserRole::class)
                     ->options(UserRole::class)
                     ->required(),
+                DateTimePicker::make('email_verified_at'),
+                Section::make('Creation Information')
+                    ->schema([
+                        Placeholder::make('created_at')
+                            ->content(fn(User $record) => $record->created_at->format('Y-m-d H:i:s')),
+                        Placeholder::make('updated_at')
+                            ->content(fn(User $record) => $record->updated_at->format('Y-m-d H:i:s')),
+                    ])->collapsed()
+                    ->columns(),
             ]);
     }
 
@@ -44,11 +59,22 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('email'),
+                TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('email')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('role')
+                    ->badge()
+                    ->label('Role')
+                    ->searchable()
+                    ->sortable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('role')
+                    ->label('Role')
+                    ->options(UserRole::class)
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -67,9 +93,9 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => \App\Filament\Admin\Resources\Pages\ListUsers::route('/'),
-            'create' => \App\Filament\Admin\Resources\Pages\CreateUser::route('/create'),
-            'edit' => \App\Filament\Admin\Resources\Pages\EditUser::route('/{record}/edit'),
+            'index' => ListUsers::route('/'),
+            'create' => CreateUser::route('/create'),
+            'edit' => EditUser::route('/{record}/edit'),
         ];
     }
 }
