@@ -9,7 +9,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Album extends Model
 {
-    use HasFactory, SoftDeletes;
+    /** @use HasFactory<\Database\Factories\AlbumFactory> */
+    use HasFactory;
+
+    use SoftDeletes;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Picture, $this>

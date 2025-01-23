@@ -16,6 +16,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements FilamentUser
 {
+    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, SoftDeletes, HasApiTokens;
 
     /**
@@ -30,15 +31,12 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        if ($panel->getId() == 'admin') {
-            return auth()->user()->isAdmin();
-        }
-        return true;
+        return auth()->user()?->isAdmin() ?? false;
     }
 
     public function isAdmin(): bool
     {
-        return $this->role === UserRole::ADMIN;
+        return $this->role == UserRole::ADMIN;
     }
 
     /**
@@ -56,6 +54,7 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(Picture::class, 'user_id');
     }
+
     protected function casts(): array
     {
         return [

@@ -10,7 +10,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Picture extends Model
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes;
+    /** @use HasFactory<\Database\Factories\PictureFactory> */
+    use HasFactory;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\User, $this>

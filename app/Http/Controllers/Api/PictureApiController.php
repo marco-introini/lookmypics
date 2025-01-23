@@ -11,14 +11,17 @@ class PictureApiController extends Controller
 {
     use AuthorizesRequests;
 
-    public function index()
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, Picture>
+     */
+    public function index(): \Illuminate\Database\Eloquent\Collection
     {
         $this->authorize('viewAny', Picture::class);
 
         return Picture::all();
     }
 
-    public function store(Request $request)
+    public function store(Request $request): Picture
     {
         $this->authorize('create', Picture::class);
 
@@ -33,14 +36,14 @@ class PictureApiController extends Controller
         return Picture::create($data);
     }
 
-    public function show(Picture $picture)
+    public function show(Picture $picture): Picture
     {
         $this->authorize('view', $picture);
 
         return $picture;
     }
 
-    public function update(Request $request, Picture $picture)
+    public function update(Request $request, Picture $picture): Picture
     {
         $this->authorize('update', $picture);
 
@@ -57,7 +60,7 @@ class PictureApiController extends Controller
         return $picture;
     }
 
-    public function destroy(Picture $picture)
+    public function destroy(Picture $picture): \Illuminate\Http\JsonResponse
     {
         $this->authorize('delete', $picture);
 

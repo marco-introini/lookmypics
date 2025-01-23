@@ -51,9 +51,9 @@ class UserResource extends Resource
                 Fieldset::make('Creation Information')
                     ->schema([
                         Placeholder::make('created_at')
-                            ->content(fn(User $record) => $record->created_at->format('Y-m-d H:i:s')),
+                            ->content(fn(User $record) => $record->created_at?->format('Y-m-d H:i:s')),
                         Placeholder::make('updated_at')
-                            ->content(fn(User $record) => $record->updated_at->format('Y-m-d H:i:s')),
+                            ->content(fn(User $record) => $record->updated_at?->format('Y-m-d H:i:s')),
                     ])
                     ->columns(),
             ]);
