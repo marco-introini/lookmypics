@@ -6,6 +6,10 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class LoginRequest extends FormRequest
 {
+    /**
+     * @return array<string,
+     *     string|array<int, string|\Illuminate\Validation\Rules\RequiredIf>>
+     */
     public function rules(): array
     {
         return [

@@ -27,12 +27,6 @@ class DatabaseSeeder extends Seeder
             'password' => 'password',
         ]);
 
-        User::factory()->superAdmin()->create([
-            'name' => 'SuperAdmin',
-            'email' => 'superadmin@example.com',
-            'password' => 'password',
-        ]);
-
         Picture::factory(10)->create();
 
     }

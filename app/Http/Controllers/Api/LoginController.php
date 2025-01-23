@@ -22,8 +22,8 @@ class LoginController extends BaseAPIController
 
         return $this->ok("Login OK", [
             'token' => $user
-                ->createToken('API token for '.$user->email)
-                ->plainTextToken
+                ?->createToken('API token for '.$user->email)
+                ?->plainTextToken
         ]);
     }
 }
