@@ -3,7 +3,7 @@
 use App\Models\User;
 use function Pest\Laravel\postJson;
 
-test('cannot login with wrong email', function () {
+test('cannot login with wrong email', function (): void {
     $user = User::factory()->create([
         'email' => 'test@example.com',
     ]);
@@ -14,7 +14,7 @@ test('cannot login with wrong email', function () {
     ])->assertStatus(401);
 });
 
-test('cannot login with wrong password', function () {
+test('cannot login with wrong password', function (): void {
     $user = User::factory()->create([
         'password' => bcrypt('password'),
     ]);
@@ -25,7 +25,7 @@ test('cannot login with wrong password', function () {
     ])->assertStatus(401);
 });
 
-test('can login with correct data', function () {
+test('can login with correct data', function (): void {
     $user = User::factory()->create([
         'email' => 'test@example.com',
         'password' => bcrypt('password'),

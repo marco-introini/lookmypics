@@ -28,12 +28,6 @@ class User extends Authenticatable implements FilamentUser
         'remember_token',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-        'role' => UserRole::class,
-    ];
-
     public function canAccessPanel(Panel $panel): bool
     {
         if ($panel->getId() == 'admin') {
@@ -47,14 +41,28 @@ class User extends Authenticatable implements FilamentUser
         return $this->role === UserRole::ADMIN;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Album, $this>
+     */
     public function albums(): HasMany
     {
         return $this->hasMany(Album::class, 'user_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Picture, $this>
+     */
     public function pictures(): HasMany
     {
         return $this->hasMany(Picture::class, 'user_id');
+    }
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+            'role' => UserRole::class,
+        ];
     }
 
 }

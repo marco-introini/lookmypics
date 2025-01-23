@@ -11,6 +11,9 @@ class Album extends Model
 {
     use HasFactory, SoftDeletes;
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Picture, $this>
+     */
     public function pictures(): HasMany
     {
         return $this->hasMany(Picture::class);
