@@ -28,8 +28,9 @@ class AdminPanelServiceProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->profile()
             ->colors([
-                'primary' => Color::Purple,
+                'primary' => Color::Sky,
             ])
             ->discoverResources(in: app_path('Filament/admin/Resources'), for: 'App\\Filament\\admin\\Resources')
             ->discoverPages(in: app_path('Filament/admin/Pages'), for: 'App\\Filament\\admin\\Pages')
@@ -39,7 +40,6 @@ class AdminPanelServiceProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/admin/Widgets'), for: 'App\\Filament\\admin\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

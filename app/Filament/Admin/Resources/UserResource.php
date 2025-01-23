@@ -9,6 +9,7 @@ use App\Filament\Admin\Resources\UserResource\Pages\EditUser;
 use App\Filament\Admin\Resources\UserResource\Pages\ListUsers;
 use App\Models\User;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -36,21 +37,24 @@ class UserResource extends Resource
                 TextInput::make('email')
                     ->email()
                     ->unique(ignoreRecord: true),
-                TextInput::make('password')
-                    ->password()
-                    ->revealable(),
-                Select::make('role')
-                    ->enum(UserRole::class)
-                    ->options(UserRole::class)
-                    ->required(),
-                DateTimePicker::make('email_verified_at'),
-                Section::make('Creation Information')
+                Fieldset::make('Warning Area')
+                ->schema([
+                    TextInput::make('password')
+                        ->password()
+                        ->revealable(),
+                    Select::make('role')
+                        ->enum(UserRole::class)
+                        ->options(UserRole::class)
+                        ->required(),
+                    DateTimePicker::make('email_verified_at'),
+                ])->columns(3),
+                Fieldset::make('Creation Information')
                     ->schema([
                         Placeholder::make('created_at')
                             ->content(fn(User $record) => $record->created_at->format('Y-m-d H:i:s')),
                         Placeholder::make('updated_at')
                             ->content(fn(User $record) => $record->updated_at->format('Y-m-d H:i:s')),
-                    ])->collapsed()
+                    ])
                     ->columns(),
             ]);
     }
