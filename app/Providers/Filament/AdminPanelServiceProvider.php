@@ -55,6 +55,6 @@ class AdminPanelServiceProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->plugin(new LocalLogins());
+            ->plugin(new LocalLogins);
     }
 }

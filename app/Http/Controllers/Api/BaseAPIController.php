@@ -8,22 +8,20 @@ use Illuminate\Http\JsonResponse;
 abstract class BaseAPIController extends Controller
 {
     /**
-     * @param  string  $message
      * @param  array<string|null>  $data
-     * @return JsonResponse
      */
     public function ok(string $message, array $data): JsonResponse
     {
         return response()->json([
             'message' => $message,
-            'data' => $data
+            'data' => $data,
         ])->setStatusCode(200);
     }
 
     public function error(string $message, int $code = 401): JsonResponse
     {
         return response()->json([
-            'message' => $message
+            'message' => $message,
         ])->setStatusCode($code);
     }
 }

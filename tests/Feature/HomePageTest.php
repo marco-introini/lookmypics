@@ -1,7 +1,7 @@
 <?php
 
 beforeEach(function (): void {
-   \Pest\Laravel\withoutVite();
+    \Pest\Laravel\withoutVite();
 });
 
 it('returns a successful response', function (): void {

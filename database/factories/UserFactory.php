@@ -50,5 +50,4 @@ class UserFactory extends Factory
             'role' => UserRole::ADMIN,
         ]);
     }
-
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+
 use function Pest\Laravel\postJson;
 
 test('cannot login with wrong email', function (): void {

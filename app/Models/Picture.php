@@ -10,9 +10,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Picture extends Model
 {
-    use SoftDeletes;
     /** @use HasFactory<\Database\Factories\PictureFactory> */
     use HasFactory;
+
+    use SoftDeletes;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\User, $this>
@@ -29,5 +30,4 @@ class Picture extends Model
     {
         return $this->belongsToMany(Album::class);
     }
-
 }

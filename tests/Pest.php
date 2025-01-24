@@ -12,7 +12,7 @@
 */
 
 pest()->extend(Tests\TestCase::class)
-  ->use(Illuminate\Foundation\Testing\LazilyRefreshDatabase::class)
+    ->use(Illuminate\Foundation\Testing\LazilyRefreshDatabase::class)
     ->in('Feature');
 
 /*
@@ -26,7 +26,7 @@ pest()->extend(Tests\TestCase::class)
 |
 */
 
-expect()->extend('toBeOne', fn() => $this->toBe(1));
+expect()->extend('toBeOne', fn () => $this->toBe(1));
 
 arch()->preset()->laravel();
 

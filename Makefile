@@ -1,6 +1,9 @@
 check:
-	vendor/bin/phpstan
-	vendor/bin/rector --dry-run
+	./vendor/bin/rector --dry-run
+	./vendor/bin/phpstan analyse
+	./vendor/bin/pint --test
+	./vendor/bin/pest
+
 
 recreate:
 	rm -f storage/logs/laravel.log

@@ -3,7 +3,6 @@
 namespace App\Filament\Admin\Resources;
 
 use App\Enums\UserRole;
-use App\Filament\Admin\Resources\UserResource\Pages;
 use App\Filament\Admin\Resources\UserResource\Pages\CreateUser;
 use App\Filament\Admin\Resources\UserResource\Pages\EditUser;
 use App\Filament\Admin\Resources\UserResource\Pages\ListUsers;
@@ -11,7 +10,6 @@ use App\Models\User;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -38,22 +36,22 @@ class UserResource extends Resource
                     ->email()
                     ->unique(ignoreRecord: true),
                 Fieldset::make('Warning Area')
-                ->schema([
-                    TextInput::make('password')
-                        ->password()
-                        ->revealable(),
-                    Select::make('role')
-                        ->enum(UserRole::class)
-                        ->options(UserRole::class)
-                        ->required(),
-                    DateTimePicker::make('email_verified_at'),
-                ])->columns(3),
+                    ->schema([
+                        TextInput::make('password')
+                            ->password()
+                            ->revealable(),
+                        Select::make('role')
+                            ->enum(UserRole::class)
+                            ->options(UserRole::class)
+                            ->required(),
+                        DateTimePicker::make('email_verified_at'),
+                    ])->columns(3),
                 Fieldset::make('Creation Information')
                     ->schema([
                         Placeholder::make('created_at')
-                            ->content(fn(User $record) => $record->created_at?->format('Y-m-d H:i:s')),
+                            ->content(fn (User $record) => $record->created_at?->format('Y-m-d H:i:s')),
                         Placeholder::make('updated_at')
-                            ->content(fn(User $record) => $record->updated_at?->format('Y-m-d H:i:s')),
+                            ->content(fn (User $record) => $record->updated_at?->format('Y-m-d H:i:s')),
                     ])
                     ->columns(),
             ]);
@@ -78,7 +76,7 @@ class UserResource extends Resource
             ->filters([
                 SelectFilter::make('role')
                     ->label('Role')
-                    ->options(UserRole::class)
+                    ->options(UserRole::class),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

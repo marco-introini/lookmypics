@@ -14,11 +14,11 @@ class PictureFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->randomElement(['img','dsc','Image '])."jpg",
+            'name' => $this->faker->randomElement(['img', 'dsc', 'Image ']).'jpg',
             'user_id' => User::inRandomOrder()->first()->id ?? User::factory()->admin()->create()->id,
             'description' => $this->faker->text(),
-            'image' => $this->faker->imageUrl(random_int(600,2000),random_int(600,2000)),
-            'rating' => random_int(0,5),
+            'image' => $this->faker->imageUrl(random_int(600, 2000), random_int(600, 2000)),
+            'rating' => random_int(0, 5),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
