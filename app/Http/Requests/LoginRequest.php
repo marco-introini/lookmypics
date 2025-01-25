@@ -3,18 +3,17 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class LoginRequest extends FormRequest
 {
-    /**
-     * @return array<string,
-     *     string|array<int, string|\Illuminate\Validation\Rules\RequiredIf>>
-     */
+
+    /** @phpstan-ignore-next-line  */
     public function rules(): array
     {
         return [
-            'email' => 'required|string|email|max:255',
-            'password' => 'required|string|min:6',
+            'email' => ['required', 'email', 'max:255'],
+            'password' => Password::min(8)->numbers()->symbols(),
         ];
     }
 
