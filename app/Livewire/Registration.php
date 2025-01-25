@@ -1,14 +1,22 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Livewire;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
+use Livewire\Component;
 
-class UserRegistrationRequest extends FormRequest
+class Registration extends Component
 {
-    /** @phpstan-ignore-next-line  */
+    public ?string $name;
+    public ?string $email;
+    public ?string $password;
+
+    public function render()
+    {
+        return view('livewire.registration');
+    }
+
     public function rules(): array
     {
         return [
@@ -22,13 +30,6 @@ class UserRegistrationRequest extends FormRequest
                     ->preventSpoofing()
             ],
             'password' => Password::min(8)->numbers()->symbols(),
-            'remember_token' => ['nullable'],
-            'role' => ['required'],
         ];
-    }
-
-    public function authorize(): bool
-    {
-        return true;
     }
 }
