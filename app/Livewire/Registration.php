@@ -4,8 +4,10 @@ namespace App\Livewire;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title( 'User Registration')]
 class Registration extends Component
 {
     public ?string $name;
@@ -30,7 +32,9 @@ class Registration extends Component
                     ->validateMxRecord()
                     ->preventSpoofing()
             ],
-            'password' => Password::min(8)->numbers()->symbols(),
+            'password' => Password::min(8)
+                ->numbers()
+                ->symbols(),
         ];
     }
 
