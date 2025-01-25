@@ -11,6 +11,7 @@ class Registration extends Component
     public ?string $name;
     public ?string $email;
     public ?string $password;
+    public bool $registered = false;
 
     public function render()
     {
@@ -31,5 +32,12 @@ class Registration extends Component
             ],
             'password' => Password::min(8)->numbers()->symbols(),
         ];
+    }
+
+    public function registerUser(): void
+    {
+        $this->validate();
+        $this->reset();
+        $this->registered = true;
     }
 }

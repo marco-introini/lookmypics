@@ -10,10 +10,11 @@
     @vite('resources/css/app.css')
     @fluxStyles
 </head>
-<body>
+<body class="container mx-auto px-4 py-6">
 
 {{ $slot }}
 
+<flux:toast />
 @fluxScripts
 </body>
 </html>
