@@ -13,7 +13,10 @@
 
 pest()->extend(Tests\TestCase::class)
     ->use(Illuminate\Foundation\Testing\LazilyRefreshDatabase::class)
-    ->in('Feature');
+    ->in('Feature')
+    ->beforeEach(function (): void {
+        \Pest\Laravel\withoutVite();
+    });
 
 /*
 |--------------------------------------------------------------------------
