@@ -14,7 +14,7 @@ class ActiveUserMiddleware
         if (is_null($user)
             || ($user->email_verified_at === null)
             || ($user->role != UserRole::USER)) {
-            abort(403);
+            abort(401);
         }
 
         return $next($request);
