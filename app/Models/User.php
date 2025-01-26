@@ -55,6 +55,11 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany(Picture::class, 'user_id');
     }
 
+    public function isActive(): bool
+    {
+        return isset($this->email_verified_at);
+    }
+
     #[\Override]
     protected function casts(): array
     {
