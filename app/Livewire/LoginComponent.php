@@ -10,9 +10,9 @@ use Livewire\Component;
 class LoginComponent extends Component
 {
     #[Validate( 'required|email|max:255' )]
-    public ?string $email;
+    public ?string $email = null;
     #[Validate( 'required|min:8' )]
-    public ?string $password;
+    public ?string $password = null;
 
     public function render(): \Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
     {

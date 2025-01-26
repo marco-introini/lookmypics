@@ -10,9 +10,9 @@ use Livewire\Component;
 #[Title( 'User Registration')]
 class RegistrationComponent extends Component
 {
-    public ?string $name;
-    public ?string $email;
-    public ?string $password;
+    public ?string $name = null;
+    public ?string $email = null;
+    public ?string $password = null;
     public bool $registered = false;
 
     public function render(): \Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View

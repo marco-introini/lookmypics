@@ -28,6 +28,7 @@ class User extends Authenticatable implements FilamentUser
         'remember_token',
     ];
 
+    #[\Override]
     public function canAccessPanel(Panel $panel): bool
     {
         return auth()->user()?->isAdmin() ?? false;
@@ -54,6 +55,7 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany(Picture::class, 'user_id');
     }
 
+    #[\Override]
     protected function casts(): array
     {
         return [

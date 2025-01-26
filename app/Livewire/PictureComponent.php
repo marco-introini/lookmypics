@@ -9,7 +9,7 @@ use Livewire\Component;
 #[Layout('components.layouts.no-distractions')]
 class PictureComponent extends Component
 {
-    public ?Picture $picture;
+    public ?Picture $picture = null;
 
     public function render(): \Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
     {

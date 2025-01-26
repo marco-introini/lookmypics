@@ -14,7 +14,7 @@ Route::get('/login', LoginComponent::class)
 
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function (): void {
    Route::get('/dashboard', DashboardComponent::class)
     ->name('dashboard');
 });
