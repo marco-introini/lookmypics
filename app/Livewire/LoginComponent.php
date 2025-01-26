@@ -7,7 +7,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 #[Title( 'Login')]
-class Login extends Component
+class LoginComponent extends Component
 {
     #[Validate( 'required|email|max:255' )]
     public $email;

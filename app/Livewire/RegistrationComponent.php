@@ -8,7 +8,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Title( 'User Registration')]
-class Registration extends Component
+class RegistrationComponent extends Component
 {
     public ?string $name;
     public ?string $email;

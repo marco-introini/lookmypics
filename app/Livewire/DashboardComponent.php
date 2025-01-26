@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-class Dashboard extends AdminComponent
+class DashboardComponent extends AdminComponent
 {
     public function render()
     {
