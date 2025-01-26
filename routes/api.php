@@ -5,6 +5,8 @@ use App\Http\Controllers\Api\PictureApiController;
 use Illuminate\Support\Facades\Route;
 
 Route::resource('/pictures', PictureApiController::class)
+    ->names('api.pictures')
     ->middleware('auth:sanctum');
 
-Route::post('/login', LoginController::class);
+Route::post('/login', LoginController::class)
+    ->name('api.login');
