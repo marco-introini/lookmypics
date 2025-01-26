@@ -12,7 +12,6 @@ class Picture extends Model
 {
     /** @use HasFactory<\Database\Factories\PictureFactory> */
     use HasFactory;
-
     use SoftDeletes;
 
     /**
@@ -29,5 +28,19 @@ class Picture extends Model
     public function albums(): BelongsToMany
     {
         return $this->belongsToMany(Album::class);
+    }
+
+    public function url(): string
+    {
+        $url = $this->image;
+        if (!stristr($url, 'https')) {
+            if (is_null($this->image)) {
+                $url = config('app.url').'/storage/immagini/placeholder.jpg';
+            } else {
+                $url = config('app.url').'/storage/'.$this->image;
+            }
+        }
+
+        return $url;
     }
 }
