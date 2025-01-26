@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\ActiveUserMiddleware;
 use App\Livewire\DashboardComponent;
 use App\Livewire\LoginComponent;
 use App\Livewire\RegistrationComponent;
@@ -14,7 +15,7 @@ Route::get('/login', LoginComponent::class)
 
 
 
-Route::middleware('auth')->group(function (): void {
+Route::middleware(['auth', ActiveUserMiddleware::class])->group(function (): void {
    Route::get('/dashboard', DashboardComponent::class)
     ->name('dashboard');
 });
