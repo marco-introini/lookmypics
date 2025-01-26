@@ -11,7 +11,7 @@ class PictureComponent extends Component
 {
     public ?Picture $picture;
 
-    public function render()
+    public function render(): \Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
     {
         return view('livewire.picture-component')
             ->title($this->picture?->title ?? 'Picture');

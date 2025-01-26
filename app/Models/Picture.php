@@ -34,11 +34,7 @@ class Picture extends Model
     {
         $url = $this->image;
         if (!stristr($url, 'https')) {
-            if (is_null($this->image)) {
-                $url = config('app.url').'/storage/immagini/placeholder.jpg';
-            } else {
-                $url = config('app.url').'/storage/'.$this->image;
-            }
+            $url = config('app.url').'/storage/'.$this->image;
         }
 
         return $url;

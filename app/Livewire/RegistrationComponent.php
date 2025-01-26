@@ -15,11 +15,12 @@ class RegistrationComponent extends Component
     public ?string $password;
     public bool $registered = false;
 
-    public function render()
+    public function render(): \Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
     {
         return view('livewire.registration');
     }
 
+    /** @phpstan-ignore-next-line  */
     public function rules(): array
     {
         return [
