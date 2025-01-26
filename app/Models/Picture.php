@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Picture extends Model
 {
@@ -34,7 +35,10 @@ class Picture extends Model
     {
         $url = $this->image;
         if (!stristr($url, 'https')) {
-            $url = config('app.url').'/storage/'.$this->image;
+            $url = Storage::disk('media')->temporaryUrl(
+                'private/' . $this->image,
+                now()->addMinutes(10)
+            );
         }
 
         return $url;
