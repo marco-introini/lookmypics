@@ -12,23 +12,29 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Override;
 
 class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    #[\Override]
+    #[Override]
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+            'role' => UserRole::class,
+        ];
+    }
+
+    #[Override]
     public function canAccessPanel(Panel $panel): bool
     {
         return auth()->user()?->isAdmin() ?? false;
@@ -37,6 +43,14 @@ class User extends Authenticatable implements FilamentUser
     public function isAdmin(): bool
     {
         return $this->role == UserRole::ADMIN;
+    }
+
+    public function isActive(): bool
+    {
+        if ($this->role != UserRole::USER) {
+            return false;
+        }
+        return isset($this->email_verified_at);
     }
 
     /**
@@ -55,18 +69,4 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany(Picture::class, 'user_id');
     }
 
-    public function isActive(): bool
-    {
-        return isset($this->email_verified_at);
-    }
-
-    #[\Override]
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'role' => UserRole::class,
-        ];
-    }
 }

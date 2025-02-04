@@ -12,8 +12,7 @@ class ActiveUserMiddleware
     {
         $user = auth()->user();
         if (is_null($user)
-            || is_null(($user->email_verified_at))
-            || ($user->role != UserRole::USER)) {
+            || !$user->isActive()) {
             abort(401);
         }
 
