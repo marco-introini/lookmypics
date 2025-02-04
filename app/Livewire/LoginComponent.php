@@ -2,12 +2,15 @@
 
 namespace App\Livewire;
 
+use App\Models\User;
 use Flux;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 #[Title('Login')]
+#[Layout('components.layouts.no-distractions')]
 class LoginComponent extends Component
 {
     #[Validate('required|email|max:255')]
@@ -29,12 +32,13 @@ class LoginComponent extends Component
             'email' => $this->email,
             'password' => $this->password
         ])) {
+            /** @var User $user */
             $user = \Auth::user();
             if ($user->isActive()) {
                 $this->redirectIntended(route('dashboard'), true);
                 return;
             }
-            Flux::toast(text: 'The email is not verified yet. Check your inbox for the verification email. ',
+            Flux::toast(text: 'The email is not verified yet. Check your inbox for the verification email.     ',
                 heading: 'Email not verified!',
                 duration: 0,
                 variant: 'danger',

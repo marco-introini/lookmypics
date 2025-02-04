@@ -1,4 +1,4 @@
-<div>
+<div class="container mx-auto px-4 sm:px-8">
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
             <flux:input wire:model="email" type="email" label="Email" />
