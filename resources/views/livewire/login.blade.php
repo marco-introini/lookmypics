@@ -4,7 +4,7 @@
             <flux:input wire:model="email" type="email" label="Email" />
             <flux:input wire:model="password" type="password" label="Password" />
         </div>
-        <div class="mt-6 flex justify-center">
+        <div class="mt-12 flex justify-center">
             <flux:button class="min-w-48" wire:click="login">Login</flux:button>
         </div>
 
