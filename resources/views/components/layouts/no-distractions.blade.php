@@ -7,8 +7,10 @@
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600&display=swap" rel="stylesheet" />
+    <title>{{ $title ?? app()->$title }}</title>
 
     @vite('resources/css/app.css')
+    @fluxStyles
 </head>
 <body>
 
@@ -16,5 +18,7 @@
     {{ $slot }}
 </div>
 
+<flux:toast />
+@fluxScripts
 </body>
 </html>
