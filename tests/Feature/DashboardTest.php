@@ -1,10 +1,11 @@
 <?php
 
 use App\Livewire\DashboardComponent;
+use App\Models\User;
 use function Pest\Laravel\get;
 
 test('dashboard page contains Livewire', function (): void {
-    $user = \App\Models\User::factory()->create();
+    $user = User::factory()->create();
     $this->actingAs($user);
 
     get(route('dashboard'))
@@ -12,7 +13,7 @@ test('dashboard page contains Livewire', function (): void {
 });
 
 test('dashboard page is unauthorized for non active users', function (): void {
-    $user = \App\Models\User::factory()->unverified()->create();
+    $user = User::factory()->unverified()->create();
     $this->actingAs($user);
 
     get(route('dashboard'))
@@ -20,7 +21,7 @@ test('dashboard page is unauthorized for non active users', function (): void {
 });
 
 test('dashboard page is unauthorized for ADMIN users', function (): void {
-    $user = \App\Models\User::factory()->admin()->create();
+    $user = User::factory()->admin()->create();
     $this->actingAs($user);
 
     get(route('dashboard'))
@@ -28,7 +29,7 @@ test('dashboard page is unauthorized for ADMIN users', function (): void {
 });
 
 test('dashboard page redirect to login page for not logged user', function (): void {
-    $user = \App\Models\User::factory()->unverified()->create();;
+    $user = User::factory()->unverified()->create();;
 
     get(route('dashboard'))
         ->assertRedirect(route('login'));

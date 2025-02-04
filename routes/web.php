@@ -12,10 +12,11 @@ Route::get('/register', RegistrationComponent::class)
     ->name('registration');
 Route::get('/login', LoginComponent::class)
     ->name('login');
-
-
+Route::get('/logout', fn () => auth()->logout())
+    ->name('logout');
 
 Route::middleware(['auth', ActiveUserMiddleware::class])->group(function (): void {
    Route::get('/dashboard', DashboardComponent::class)
     ->name('dashboard');
 });
+
