@@ -38,7 +38,7 @@ class Picture extends Model
         $url = $this->image;
         if (!stristr($url, 'https')) {
             $url = Storage::disk('media')->temporaryUrl(
-                'private/' . $this->image,
+                $this->image,
                 now()->addMinutes(10)
             );
         }
