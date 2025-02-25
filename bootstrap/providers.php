@@ -2,6 +2,6 @@
 
 return [
     App\Providers\AppServiceProvider::class,
-    App\Providers\Filament\AdminPanelServiceProvider::class,
-    App\Providers\Filament\AdminPanelServiceProvider::class,
+    App\Providers\FolioServiceProvider::class,
+    App\Providers\VoltServiceProvider::class,
 ];
