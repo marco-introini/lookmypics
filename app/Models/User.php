@@ -3,70 +3,58 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Enums\UserRole;
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Override;
+use Illuminate\Support\Str;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, Notifiable;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var list<string>
+     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    #[Override]
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'role' => UserRole::class,
         ];
     }
 
-    #[Override]
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return auth()->user()?->isAdmin() ?? false;
-    }
-
-    public function isAdmin(): bool
-    {
-        return $this->role == UserRole::ADMIN;
-    }
-
-    public function isActive(): bool
-    {
-        if ($this->role != UserRole::USER) {
-            return false;
-        }
-        return isset($this->email_verified_at);
-    }
-
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Album, $this>
+     * Get the user's initials
      */
-    public function albums(): HasMany
+    public function initials(): string
     {
-        return $this->hasMany(Album::class, 'user_id');
+        return Str::of($this->name)
+            ->explode(' ')
+            ->map(fn (string $name) => Str::of($name)->substr(0, 1))
+            ->implode('');
     }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Picture, $this>
-     */
-    public function pictures(): HasMany
-    {
-        return $this->hasMany(Picture::class, 'user_id');
-    }
-
 }
