@@ -2,20 +2,15 @@
 
 namespace App\Models;
 
-use App\Enums\UserRole;
-use Database\Factories\UserFactory;
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Panel;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-use Override;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
+    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -27,7 +22,6 @@ class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
-        'role',
     ];
 
     /**
@@ -40,12 +34,16 @@ class User extends Authenticatable implements FilamentUser
         'remember_token',
     ];
 
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'role' => UserRole::class,
         ];
     }
 
@@ -56,27 +54,7 @@ class User extends Authenticatable implements FilamentUser
     {
         return Str::of($this->name)
             ->explode(' ')
-            ->map(fn(string $name) => Str::of($name)->substr(0, 1))
+            ->map(fn (string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
     }
-
-    #[Override]
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return auth()->user()?->isAdmin() ?? false;
-    }
-
-    public function isAdmin(): bool
-    {
-        return $this->role == UserRole::ADMIN;
-    }
-
-    public function isActive(): bool
-    {
-        if ($this->role != UserRole::USER) {
-            return false;
-        }
-        return isset($this->email_verified_at);
-    }
-
 }
